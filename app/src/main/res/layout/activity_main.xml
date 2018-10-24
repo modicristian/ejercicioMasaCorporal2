@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/txtTituloEdad"
+        android:layout_width="138dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="EDAD:"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.609" />
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="383dp"
@@ -23,7 +42,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnCalcular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -78,7 +97,7 @@
         app:layout_constraintVertical_bias="0.279" />
 
     <TextView
-        android:id="@+id/txtTituloAltura2"
+        android:id="@+id/txtTituloGenero"
         android:layout_width="138dp"
         android:layout_height="47dp"
         android:layout_marginStart="8dp"
@@ -117,12 +136,12 @@
     <EditText
         android:id="@+id/txtAltura"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:hint="Ingrese su Altura"
+        android:hint="Ingrese su altura"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -131,6 +150,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.358" />
+
+    <EditText
+        android:id="@+id/txtEdad"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:hint="Ingrese su edad"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.656"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.652" />
 
     <TextView
         android:id="@+id/textView2"
@@ -164,16 +201,17 @@
         app:layout_constraintVertical_bias="0.167" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerGenero"
         android:layout_width="174dp"
         android:layout_height="49dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="134dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:entries="@array/genero"
+        app:layout_constraintBottom_toTopOf="@+id/btnCalcular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/txtTituloAltura2"
+        app:layout_constraintStart_toEndOf="@+id/txtTituloGenero"
         app:layout_constraintTop_toBottomOf="@+id/txtAltura"
         app:layout_constraintVertical_bias="0.0" />
 
