@@ -46,7 +46,7 @@ public class Main2Activity extends AppCompatActivity {
         ideal = sharedPreferences.getString("Ideal","");
         riesgo = sharedPreferences.getString("Riesgo","");
 
-        
+
 
 
 
