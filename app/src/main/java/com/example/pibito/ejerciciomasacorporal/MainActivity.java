@@ -1,6 +1,7 @@
 package com.example.pibito.ejerciciomasacorporal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -72,6 +76,9 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(false);
         getSupportActionBar().setTitle("CALCULAR LA MASA CORPORAL");
+
+        Intent intent = new Intent(this,Main2Activity.class);
+        this.startActivity(intent);
 
     }
     @Override
@@ -206,6 +213,37 @@ public class MainActivity extends AppCompatActivity
                 Log.d("InputStream", e.getLocalizedMessage());
             }
             return result;
+        }
+
+        @Override
+        protected void onPostExecute (String jsonInternet)
+        {
+            try
+            {
+                JSONObject jsonObject = new JSONObject(jsonInternet);
+                JSONObject jsonbmi = jsonObject.getJSONObject("bmi");
+
+                String resultado = jsonbmi.getString("value");
+                String estado = jsonbmi.getString("status");
+                String riesgo = jsonbmi.getString("risk");
+
+                String ideal = jsonObject.getString("ideal_weight");
+
+                SharedPreferences sharedPreferences = getSharedPreferences("ValoresResultado",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.putString("Resultado",resultado);
+                editor.putString("Estado",estado);
+                editor.putString("Riesgo",riesgo);
+                editor.putString("Ideal",ideal);
+                editor.commit();
+
+
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(MainActivity.this,"HAY UN ERROR",Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
