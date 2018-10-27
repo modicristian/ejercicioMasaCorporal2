@@ -1,8 +1,6 @@
 package com.example.pibito.ejerciciomasacorporal;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,10 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -69,16 +65,13 @@ public class MainActivity extends AppCompatActivity
 
         btnCalcular = findViewById(R.id.btnCalcular);
 
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(false);
         getSupportActionBar().setTitle("CALCULAR LA MASA CORPORAL");
-
-        Intent intent = new Intent(this,Main2Activity.class);
-        this.startActivity(intent);
 
     }
     @Override
@@ -137,17 +130,27 @@ public class MainActivity extends AppCompatActivity
                     }
                     else
                     {
-                        SharedPreferences preferences = getSharedPreferences("miShared", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
+                        //SharedPreferences preferences = getSharedPreferences("miShared", Context.MODE_PRIVATE);
+                        //SharedPreferences.Editor editor = preferences.edit();
 
-                        editor.putString("Peso",peso);
-                        editor.putString("Altura",altura);
-                        editor.putLong("Genero",genero);
-                        editor.putString("Edad",edad);
-                        editor.commit();
+                        //editor.putString("Peso",peso);
+                        //editor.putString("Altura",altura);
+                        //editor.putLong("Genero",genero);
+                        //editor.putString("Edad",edad);
+                        //editor.commit();
 
-                        new jsonMasa (peso,altura,genero,edad).execute("https://bmi.p.mashape.com/");
+                        new JsonMasa (peso,altura,genero,edad).execute("https://bmi.p.mashape.com/");
 
+                        JsonMasa jsonMasa = new JsonMasa();
+
+                        Intent intent = new Intent(this,Main2Activity.class);
+
+                        intent.putExtra("RESULTADO",jsonMasa.getResultado());
+                        intent.putExtra("ESTADO",jsonMasa.getEstado());
+                        intent.putExtra("RIESGO",jsonMasa.getRiesgo());
+                        intent.putExtra("IDEAL",jsonMasa.getIdeal());
+
+                        this.startActivity(intent);
                     }
                 }
             }
@@ -155,11 +158,32 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public class jsonMasa extends AsyncTask<String,Void,String>
+    public class JsonMasa extends AsyncTask<String,Void,String>
     {
         String data = "";
+        String resultado,estado,riesgo,ideal;
 
-        jsonMasa (String peso, String altura, Long genero, String edad)
+        public String getResultado() {
+            return resultado;
+        }
+
+        public String getEstado() {
+            return estado;
+        }
+
+        public String getRiesgo() {
+            return riesgo;
+        }
+
+        public String getIdeal() {
+            return ideal;
+        }
+
+        public JsonMasa() {
+
+        }
+
+        JsonMasa (String peso, String altura, Long genero, String edad)
         {
             String generoJson = "";
 
@@ -223,20 +247,19 @@ public class MainActivity extends AppCompatActivity
                 JSONObject jsonObject = new JSONObject(jsonInternet);
                 JSONObject jsonbmi = jsonObject.getJSONObject("bmi");
 
-                String resultado = jsonbmi.getString("value");
-                String estado = jsonbmi.getString("status");
-                String riesgo = jsonbmi.getString("risk");
+                resultado = jsonbmi.getString("value");
+                estado = jsonbmi.getString("status");
+                riesgo = jsonbmi.getString("risk");
 
-                String ideal = jsonObject.getString("ideal_weight");
+                ideal = jsonObject.getString("ideal_weight");
 
-                SharedPreferences sharedPreferences = getSharedPreferences("ValoresResultado",Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                editor.putString("Resultado",resultado);
-                editor.putString("Estado",estado);
-                editor.putString("Riesgo",riesgo);
-                editor.putString("Ideal",ideal);
-                editor.commit();
+                //SharedPreferences sharedPreferences = getSharedPreferences("ValoresResultado",Context.MODE_PRIVATE);
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                //editor.putString("Resultado",resultado);
+                //editor.putString("Estado",estado);
+                //editor.putString("Riesgo",riesgo);
+                //editor.putString("Ideal",ideal);
+                //editor.commit();
 
 
             }
