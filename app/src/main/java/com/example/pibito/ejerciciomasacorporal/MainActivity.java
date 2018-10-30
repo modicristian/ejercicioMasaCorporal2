@@ -141,11 +141,7 @@ public class MainActivity extends AppCompatActivity
 
                         new JsonMasa (peso,altura,genero,edad).execute("https://bmi.p.mashape.com/");
 
-                        JsonMasa jsonMasa = new JsonMasa(peso,altura,genero,edad);
 
-                        Intent intent = new Intent(this,Main2Activity.class);
-
-                        this.startActivity(intent);
                     }
                 }
             }
@@ -237,13 +233,14 @@ public class MainActivity extends AppCompatActivity
                 //editor.putString("Ideal",ideal);
                 //editor.commit();
 
-                Intent intent = new Intent();
+                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
 
                 intent.putExtra("RESULTADO",resultado);
                 intent.putExtra("ESTADO",estado);
                 intent.putExtra("RIESGO",riesgo);
                 intent.putExtra("IDEAL",ideal);
 
+                MainActivity.this.startActivity(intent);
 
             }
             catch (Exception e)
