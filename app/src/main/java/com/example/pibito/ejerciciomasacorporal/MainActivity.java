@@ -141,14 +141,9 @@ public class MainActivity extends AppCompatActivity
 
                         new JsonMasa (peso,altura,genero,edad).execute("https://bmi.p.mashape.com/");
 
-                        JsonMasa jsonMasa = new JsonMasa();
+                        JsonMasa jsonMasa = new JsonMasa(peso,altura,genero,edad);
 
                         Intent intent = new Intent(this,Main2Activity.class);
-
-                        intent.putExtra("RESULTADO",jsonMasa.getResultado());
-                        intent.putExtra("ESTADO",jsonMasa.getEstado());
-                        intent.putExtra("RIESGO",jsonMasa.getRiesgo());
-                        intent.putExtra("IDEAL",jsonMasa.getIdeal());
 
                         this.startActivity(intent);
                     }
@@ -163,25 +158,7 @@ public class MainActivity extends AppCompatActivity
         String data = "";
         String resultado,estado,riesgo,ideal;
 
-        public String getResultado() {
-            return resultado;
-        }
 
-        public String getEstado() {
-            return estado;
-        }
-
-        public String getRiesgo() {
-            return riesgo;
-        }
-
-        public String getIdeal() {
-            return ideal;
-        }
-
-        public JsonMasa() {
-
-        }
 
         JsonMasa (String peso, String altura, Long genero, String edad)
         {
@@ -200,7 +177,6 @@ public class MainActivity extends AppCompatActivity
             String result = "";
             HttpURLConnection httpcon;
 
-            String data = "{ \"weight\": { \"value\": \"85.00\", \"unit\": \"kg\" }, \"height\": { \"value\": \"169.00\", \"unit\": \"cm\" }, \"sex\": \"m\", \"age\": \"40\", \"waist\": \"34.00\", \"hip\": \"40.00\" }\n";
 
             try {
                 //Connect
@@ -261,12 +237,21 @@ public class MainActivity extends AppCompatActivity
                 //editor.putString("Ideal",ideal);
                 //editor.commit();
 
+                Intent intent = new Intent();
+
+                intent.putExtra("RESULTADO",resultado);
+                intent.putExtra("ESTADO",estado);
+                intent.putExtra("RIESGO",riesgo);
+                intent.putExtra("IDEAL",ideal);
+
 
             }
             catch (Exception e)
             {
                 Toast.makeText(MainActivity.this,"HAY UN ERROR",Toast.LENGTH_LONG).show();
             }
+
+
         }
     }
 }

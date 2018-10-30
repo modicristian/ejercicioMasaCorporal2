@@ -13,6 +13,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private TextView txtResultado,txtEstado,txtIdeal,txtRiesgo;
     private Toolbar toolbar;
+    private String resultado, estado, ideal, riesgo;
 
     public void setTxtResultado(TextView txtResultado) {
         this.txtResultado = txtResultado;
@@ -30,8 +31,6 @@ public class Main2Activity extends AppCompatActivity {
         this.txtRiesgo = txtRiesgo;
     }
 
-    private String resultado, estado, ideal, riesgo;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +44,11 @@ public class Main2Activity extends AppCompatActivity {
         Bundle b = new Bundle();
         b = getIntent().getExtras();
 
-        resultado = String.valueOf(b.getInt("RESULTADO"));
-        estado = String.valueOf(b.getInt("ESTADO"));
-        ideal = String.valueOf(b.getInt("IDEAL"));
-        riesgo = String.valueOf(b.getInt("RIESGO"));
+        resultado = b.getString("RESULTADO");
+        estado = b.getString("ESTADO");
+        ideal = b.getString("IDEAL");
+        riesgo = b.getString("RIESGO");
+
 
         //SharedPreferences sharedPreferences = getSharedPreferences("ValoresResultado", Context.MODE_PRIVATE);
         //resultado = sharedPreferences.getString("Resultado","");
